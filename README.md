@@ -6,7 +6,7 @@ This is a quick start creating an angular 4 application with webpack.
 # Clone my repo
 git clone https://github.com/muweigg/ng4.git
 
-# Change directory to ng2
+# Change directory to ng4
 cd ng4
 
 # Install dependencies
