@@ -1,0 +1,8 @@
+<h1>{{ title }}</h1>
+
+<ul>
+    <li *ngFor="let name of names">{{ name }}</li>
+</ul>
+
+<input #nameList type="text" [(ngModel)]="name" (keydown.enter)="addItem()">
+<button (click)="addItem()">Add Item</button>
