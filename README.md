@@ -14,7 +14,7 @@ npm install
 or
 yarn install
 
-# Start dev server at http://localhost:3001
+# Start dev server at http://localhost:4444
 npm run serve
 or
 yarn serve
