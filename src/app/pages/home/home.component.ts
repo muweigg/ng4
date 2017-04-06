@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
     selector: 'home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 

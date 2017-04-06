@@ -1,12 +1,11 @@
 const { AotPlugin } = require('@ngtools/webpack');
 const helpers = require('./helpers');
-// const AOT = helpers.hasNpmFlag('aot');
+const AOT = helpers.hasNpmFlag('aot');
 
 var aotPlugin = new AotPlugin({
     tsConfigPath: './tsconfig.json',
     mainPath: './src/main.ts',
-    // skipCodeGeneration: !AOT
-    skipCodeGeneration: false
+    skipCodeGeneration: !AOT
 });
 
 aotPlugin._compilerHost._resolve = function(path_to_resolve) {

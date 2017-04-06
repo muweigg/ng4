@@ -9,7 +9,7 @@ function getConfig (name) {
         },
         target: {
             image: helpers.root(`src/assets/${name}.png`),
-            css: helpers.root(`src/scss/${name}.scss`)
+            css: helpers.root(`src/sprites/${name}.scss`)
         },
         apiOptions: {
             cssImageRef: `./assets/${name}.png`

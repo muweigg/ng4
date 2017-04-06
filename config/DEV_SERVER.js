@@ -1,5 +1,5 @@
 module.exports = {
-    port: 3001,
+    port: 4444,
     host: '0.0.0.0',
     historyApiFallback: true,
     compress: true,

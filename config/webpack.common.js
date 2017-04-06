@@ -1,29 +1,27 @@
-const helpers      = require('./helpers');
-const AssetsPlugin = require('assets-webpack-plugin');
-const CopyPlugin   = require('copy-webpack-plugin');
-const HtmlPlugin   = require('html-webpack-plugin');
-const {
-    DefinePlugin,
-    NoEmitOnErrorsPlugin,
-    LoaderOptionsPlugin,
-    HotModuleReplacementPlugin,
-    NamedModulesPlugin
-} = require('webpack');
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
-const DEV_SERVER         = require('./DEV_SERVER');
-const SPRITESMITH_CONFIG = require('./SPRITESMITH_CONFIG');
-const AOT_PLUGIN         = require('./AOT_PLUGIN');
-const NODE_MODULES       = helpers.root('node_modules');
+const helpers = require('./helpers');
+const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = function(options){
+const DEV_SERVER = require('./DEV_SERVER');
+const SPRITESMITH_CONFIG = require('./SPRITESMITH_CONFIG');
+const AOT_PLUGIN = require('./AOT_PLUGIN');
+const NODE_MODULES = helpers.root('node_modules');
+const COMMON_STYLE = helpers.root('src/styles/common.scss');
+
+module.exports = function(options) {
 
     const isProd = options.env === 'production';
 
     return {
-        
+
+        devServer: DEV_SERVER,
+
         entry: {
-            'polyfills': helpers.root('src/polyfills.ts'),
-            'main': helpers.root('src/main.ts')
+            polyfills: [ helpers.root('src/polyfills.ts') ],
+            main:      [ helpers.root('src/main.ts') ],
+            common:    [ COMMON_STYLE ]
         },
 
         output: {
@@ -35,125 +33,100 @@ module.exports = function(options){
 
         resolve: {
             extensions: ['.ts', '.js'],
-            modules: [helpers.root('src'), helpers.root('node_modules')]
+            modules: [ helpers.root('node_modules') ]
         },
 
         resolveLoader: {
-            modules: [
-                './node_modules'
-            ]
+            modules: [ helpers.root('node_modules') ]
         },
 
-        devServer: DEV_SERVER,
-        
         module: {
-
             rules: [
                 {
-                    enforce: 'pre',
-                    test: /\.js$/,
-                    loader: 'source-map-loader',
-                    exclude: [
+                    "enforce": "pre",
+                    "test": /\.js$/,
+                    "loader": "source-map-loader",
+                    "exclude": [
                         /\/node_modules\//
                     ]
                 },
-
+                { test: /\.json$/, "loader": "json-loader" },
+                { test: /\.html$/, use: ['raw-loader'] },
+                { test: /\.css$/, use: ['raw-loader', 'postcss-loader'] },
                 {
-                    test: /\.ts$/,
-                    loader: '@ngtools/webpack'
-                },
-
-                {
-                    test: /\.scss$/,
-                    use: [
-                        'to-string-loader',
-                        'raw-loader',
-                        'sass-loader',
-                        'postcss-loader'
+                    "exclude": [ COMMON_STYLE ],
+                    "test": /\.scss$|\.sass$/,
+                    "loaders": [
+                        "exports-loader?module.exports.toString()",
+                        "raw-loader",
+                        "postcss-loader",
+                        "sass-loader"
                     ]
                 },
-
                 {
-                    test: /\.json$/,
-                    use: ['json-loader']
+                    "include": [ COMMON_STYLE ],
+                    "test": /\.scss$|\.sass$/,
+                    "loaders": ExtractTextPlugin.extract({
+                        "use": [
+                            "raw-loader",
+                            "postcss-loader",
+                            "sass-loader"
+                        ],
+                        "fallback": "style-loader",
+                        "publicPath": ""
+                    })
                 },
-
-                {
-                    test: /\.html$/,
-                    use: ['raw-loader'],
-                    exclude: helpers.root('src/index.html')
-                },
-
-                {
-                    test: /\.(eot|svg|ttf|woff2?)$/,
-                    use: [{
-                        loader: 'url-loader',
-                        options: {
-                            limit: 1000,
-                            name: '[path][name].[ext]'
-                        }
-                    }]
-                },
-
-                {
-                    test: /\.(png|gif|jpe?g)$/,
-                    use: [{
-                        loader: 'url-loader',
-                        options: {
-                            limit: 1000,
-                            name: '[path][name].[ext]'
-                        }
-                    }]
-                }
+                { test: /\.ts$/, use: ['@ngtools/webpack'] }
             ]
         },
 
         plugins: [
-            new NoEmitOnErrorsPlugin(),
-            new DefinePlugin({
+            new webpack.NoEmitOnErrorsPlugin(),
+            new webpack.DefinePlugin({
                 'PROD_ENV': JSON.stringify(isProd)
-            }),
-            new AssetsPlugin({
-                path: helpers.root('dist'),
-                filename: 'webpack-assets.json',
-                prettyPrint: true
             }),
             new CopyPlugin([{
                 from: helpers.root('src/assets'),
                 to: 'assets',
                 ignore: ['favicon.ico']
             }]),
-            new CommonsChunkPlugin({
+            new webpack.optimize.CommonsChunkPlugin({
                 name: 'polyfills',
                 chunks: ['polyfills'],
             }),
-            new CommonsChunkPlugin({
+            new webpack.optimize.CommonsChunkPlugin({
                 name: 'vendor',
                 chunks: ['main'],
                 minChunks: (module) => module.resource && module.resource.startsWith(NODE_MODULES),
             }),
-            new CommonsChunkPlugin({
+            new webpack.optimize.CommonsChunkPlugin({
                 name: ['polyfills', 'vendor'].reverse()
             }),
-            new CommonsChunkPlugin({
+            new webpack.optimize.CommonsChunkPlugin({
                 name: 'inline',
-                minChunks: Infinity
+                minChunks: null
             }),
             new HtmlPlugin({
                 template: helpers.root('src/index.html'),
                 favicon: helpers.root('src/assets/favicon.ico'),
                 hash: true,
-                inject: true,
+                inject: true
             }),
-            new LoaderOptionsPlugin({
+            new webpack.LoaderOptionsPlugin({
+                debug: !isProd,
+                minimize: isProd,
                 sourceMap: false,
-                options: {
-                    context: '',
-                    sassLoader: {
-                        sourceMap: false,
-                        includePaths: []
-                    }
+                "options": {
+                    "sassLoader": {
+                        "sourceMap": false,
+                        "includePaths": []
+                    },
+                    "context": ""
                 }
+            }),
+            new ExtractTextPlugin({
+                filename: '[name].css',
+                disable: !isProd
             }),
             ...SPRITESMITH_CONFIG,
             AOT_PLUGIN
