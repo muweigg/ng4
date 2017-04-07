@@ -1,11 +1,8 @@
-@import '../../../styles/common.scss';
-
-
 h1 {
-    color: $royalblue;
+    color: royalblue;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-flow: row nowrap;
-    font-size: $fontSize;
+    font-size: 72px;
 }
