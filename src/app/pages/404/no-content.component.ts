@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 		<div>
 			<h1>404: page missing</h1>
 		</div>
-	`,
-	styleUrls: ['./no-content.component.scss']
+	`
 })
 export class NoContentComponent { }
