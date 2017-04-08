@@ -83,7 +83,7 @@ module.exports = function (options) {
 			new HtmlPlugin({
 				template: helpers.root('src/index.html'),
 				favicon: helpers.root('src/assets/favicon.ico'),
-				hash: true,
+				hash: !isProd,
 				chunksSortMode: function sort(left, right) {
 					let leftIndex = entryPoints.indexOf(left.names[0]);
 					let rightindex = entryPoints.indexOf(right.names[0]);
