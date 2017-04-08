@@ -8,6 +8,7 @@ const SPRITESMITH_CONFIG = require('./SPRITESMITH_CONFIG');
 const AOT_PLUGIN = require('./AOT_PLUGIN');
 const NODE_MODULES = helpers.root('node_modules');
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
+const entryPoints = ["inline", "polyfills", "common", "vendor", "main"];
 
 module.exports = function (options) {
 
@@ -76,16 +77,24 @@ module.exports = function (options) {
 				minChunks: (module) => module.resource && module.resource.startsWith(NODE_MODULES),
 			}),
 			new webpack.optimize.CommonsChunkPlugin({
-				name: ['polyfills', 'vendor'].reverse()
-			}),
-			new webpack.optimize.CommonsChunkPlugin({
 				name: 'inline',
 				minChunks: Infinity
 			}),
 			new HtmlPlugin({
 				template: helpers.root('src/index.html'),
 				favicon: helpers.root('src/assets/favicon.ico'),
-				hash: true
+				hash: true,
+				chunksSortMode: function sort(left, right) {
+					let leftIndex = entryPoints.indexOf(left.names[0]);
+					let rightindex = entryPoints.indexOf(right.names[0]);
+					if (leftIndex > rightindex) {
+						return 1;
+					} else if (leftIndex < rightindex) {
+						return -1;
+					} else {
+						return 0;
+					}
+				}
 			}),
 			...SPRITESMITH_CONFIG,
 			AOT_PLUGIN
