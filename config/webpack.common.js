@@ -40,7 +40,7 @@ module.exports = function (options) {
 				{ test: /\.ts$/, use: ['@ngtools/webpack'] },
 				{ test: /\.html$/, use: ['raw-loader'] },
 				{ test: /\.json$/, use: ['json-loader'] },
-				{ test: /\.css$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'] },
+				{ test: /\.css$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
 				{ test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] }
 			]
 		},
