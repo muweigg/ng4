@@ -7,7 +7,7 @@ const DEV_SERVER = require('./DEV_SERVER');
 const SPRITESMITH_CONFIG = require('./SPRITESMITH_CONFIG');
 const AOT_PLUGIN = require('./AOT_PLUGIN');
 const NODE_MODULES = helpers.root('node_modules');
-const COMMON_STYLE = helpers.root('src/styles/common.css');
+const COMMON_STYLE = helpers.root('src/styles/common.scss');
 
 module.exports = function (options) {
 
@@ -40,8 +40,8 @@ module.exports = function (options) {
 				{ test: /\.ts$/, use: ['@ngtools/webpack'] },
 				{ test: /\.html$/, use: ['raw-loader'] },
 				{ test: /\.json$/, use: ['json-loader'] },
-				{ test: /\.css$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
-				{ test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'] }
+				{ test: /\.css$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'] },
+				{ test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] }
 			]
 		},
 
