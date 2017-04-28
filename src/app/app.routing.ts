@@ -1,11 +1,11 @@
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { HomeComponent } from './pages/home';
-import { NoContentComponent } from './pages/404';
+import { HomeComponent } from './components';
+import { PageNotFoundComponent } from './components';
 
 export const APP_ROUTES: Routes = [
+    { path: 'home', component: HomeComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-	{ path: 'home',  component: HomeComponent },
-	{ path: '**',    component: NoContentComponent },
+    { path: '**', component: PageNotFoundComponent },
 ];
 
 export const routing = RouterModule.forRoot(APP_ROUTES, {
