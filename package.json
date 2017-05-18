@@ -4,7 +4,8 @@
   "description": "This is a quick start creating an angular 4 application with webpack.",
   "scripts": {
     "build:aot": "webpack --config config/webpack.prod.js --progress",
-    "serve": "webpack-dev-server --config config/webpack.dev.js --progress --hot --inline"
+    "serve": "webpack-dev-server --config config/webpack.dev.js --progress --profile --watch",
+    "serve:hot": "npm run serve -- --hot --inline"
   },
   "author": "MuWei",
   "license": "MIT",
