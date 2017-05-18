@@ -19,6 +19,6 @@ export var routes: Routes = [
             preloadingStrategy: PreloadAllModules
         })
     ],
-    exports: [ RouterModule ]
+    exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

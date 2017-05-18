@@ -1,7 +1,7 @@
 const helpers = require('./helpers');
 const config = require('./webpack.common');
 const webpackMerge = require('webpack-merge');
-const webpackMergeDll = webpackMerge.strategy({plugins: 'replace'});
+const webpackMergeDll = webpackMerge.strategy({ plugins: 'replace' });
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 const DllBundlesPlugin = require('webpack-dll-bundles-plugin').DllBundlesPlugin;
 
@@ -12,7 +12,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
     devtool: "source-map",
     module: {
         rules: [
-			{ test: /\.ts$/, use: ['awesome-typescript-loader', 'angular-router-loader', 'angular2-template-loader'] },
+            { test: /\.ts$/, use: ['awesome-typescript-loader', 'angular-router-loader', 'angular2-template-loader'] },
             {
                 test: /\.(s[ac]|c)ss$/,
                 use: ['style-loader', 'css-loader?importLoaders=1&url=false', 'postcss-loader', 'sass-loader'],

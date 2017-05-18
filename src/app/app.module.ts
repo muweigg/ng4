@@ -8,17 +8,17 @@ import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/404/page-not-found.component';
 
 @NgModule({
-	imports: [
-		BrowserModule,
-		FormsModule,
-		HttpModule,
-		AppRoutingModule,
-	],
-	declarations: [
-		appRoutingComponent,
-		AppComponent,
-	],
-	providers: [],
-	bootstrap: [ AppComponent ]
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        AppRoutingModule,
+    ],
+    declarations: [
+        appRoutingComponent,
+        AppComponent,
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
