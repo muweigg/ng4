@@ -6,7 +6,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-    @ViewChild('nameList') nameList:ElementRef;
+    @ViewChild('nameInput') nameInput:ElementRef;
     title:String = "ng4-start";
     names:Array<any> = [];
     name:String = "";
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
         if (this.name.length > 0) {
             this.names.push(this.name);
             this.name = '';
-            this.nameList.nativeElement.focus();
+            this.nameInput.nativeElement.focus();
         }
     }
 }
