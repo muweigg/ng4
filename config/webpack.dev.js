@@ -21,7 +21,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
         ]
     },
     plugins: [
-        /*new DllBundlesPlugin({
+        new DllBundlesPlugin({
             bundles: {
                 polyfills: [
                     'core-js',
@@ -55,6 +55,6 @@ module.exports = webpackMerge(config({ env: ENV }), {
         new AddAssetHtmlPlugin([
             { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('polyfills')}`) },
             { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('vendor')}`) }
-        ]),*/
+        ]),
     ]
 });
