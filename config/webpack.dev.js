@@ -12,7 +12,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
     devtool: "source-map",
     module: {
         rules: [
-            { test: /\.ts$/, use: ['ng-router-loader', 'awesome-typescript-loader', 'angular2-template-loader'] },
+            { test: /\.ts$/, use: ['ng-router-loader', { loader: 'awesome-typescript-loader', options: { useCache: true } }, 'angular2-template-loader'] },
             {
                 test: /\.(s[ac]|c)ss$/,
                 use: ['style-loader', 'css-loader?importLoaders=1&url=false', 'postcss-loader', 'sass-loader'],
@@ -21,7 +21,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
         ]
     },
     plugins: [
-        new DllBundlesPlugin({
+        /*new DllBundlesPlugin({
             bundles: {
                 polyfills: [
                     'core-js',
@@ -55,6 +55,6 @@ module.exports = webpackMerge(config({ env: ENV }), {
         new AddAssetHtmlPlugin([
             { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('polyfills')}`) },
             { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('vendor')}`) }
-        ]),
+        ]),*/
     ]
 });

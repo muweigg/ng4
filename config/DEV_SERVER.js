@@ -6,6 +6,7 @@ module.exports = {
     headers: { 'Access-Control-Allow-Origin': '*' },
     watchOptions: {
         aggregateTimeout: 300,
-        poll: 1000
+        poll: 1000,
+        ignored: /node_modules/
     }
 }
