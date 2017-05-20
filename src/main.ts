@@ -10,4 +10,12 @@ if (PROD_ENV) {
     enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule);
+export function main() {
+    return platformBrowserDynamic().bootstrapModule(AppModule);
+}
+
+if (document.readyState === 'complete') {
+    main();
+} else {
+    document.addEventListener('DOMContentLoaded', main);
+}
