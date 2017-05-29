@@ -7,7 +7,7 @@ export const appRoutingComponent = [
 ]
 
 export var routes: Routes = [
-    { path: 'home', loadChildren: 'src/app/modules/home/home.module#HomeModule' },
+    { path: 'home', loadChildren: './modules/home/home.module#HomeModule' },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent },
 ];

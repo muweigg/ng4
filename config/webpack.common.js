@@ -4,7 +4,6 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
-const { AotPlugin } = require('@ngtools/webpack');
 
 const AOT = helpers.hasNpmFlag('aot');
 const DEV_SERVER = require('./DEV_SERVER');
@@ -103,11 +102,6 @@ module.exports = function(options) {
                 defaultAttribute: 'defer'
             }),
             new InlineManifestWebpackPlugin(),
-            new AotPlugin({
-                tsConfigPath: './tsconfig.json',
-                mainPath: './src/main.ts',
-                skipCodeGeneration: !AOT
-            }),
             ...SPRITESMITH_CONFIG,
         ]
     }

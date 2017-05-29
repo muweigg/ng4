@@ -5,6 +5,7 @@ const webpackMerge = require('webpack-merge');
 const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const { SuppressExtractedTextChunksWebpackPlugin } = require('@angular/cli/plugins/webpack');
+const { AotPlugin } = require('@ngtools/webpack');
 
 const ENV = process.env.ENV = process.env.NODE_ENV = "production";
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
@@ -31,6 +32,11 @@ module.exports = webpackMerge(config({ env: ENV }), {
             compress: { screw_ie8: true, warnings: false },
             sourceMap: false
         }),
-        new SuppressExtractedTextChunksWebpackPlugin()
+        new SuppressExtractedTextChunksWebpackPlugin(),
+        new AotPlugin({
+            tsConfigPath: './tsconfig.json',
+            mainPath: './src/main.ts',
+            skipCodeGeneration: false
+        }),
     ]
 });
