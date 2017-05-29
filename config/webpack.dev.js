@@ -12,7 +12,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
     devtool: "source-map",
     module: {
         rules: [
-            { test: /\.ts$/, use: ['ng-router-loader', { loader: 'awesome-typescript-loader', options: { useCache: true } }, 'angular2-template-loader'] },
+            { test: /\.ts$/, use: ['@angularclass/hmr-loader', 'ng-router-loader', { loader: 'awesome-typescript-loader', options: { useCache: true } }, 'angular2-template-loader'] },
             {
                 test: /\.(s[ac]|c)ss$/,
                 use: ['style-loader', 'css-loader?importLoaders=1&url=false', 'postcss-loader', 'sass-loader'],
@@ -43,6 +43,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
                     '@angular/forms',
                     '@angular/http',
                     '@angular/router',
+                    '@angularclass/hmr',
                     'rxjs',
                 ]
             },

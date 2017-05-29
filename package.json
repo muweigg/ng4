@@ -19,6 +19,9 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@angularclass/hmr": "^1.2.2",
+    "@angularclass/hmr-loader": "^3.0.2",
+    "@ngrx/store": "^2.2.2",
     "core-js": "^2.4.1",
     "rxjs": "^5.4.0",
     "zone.js": "^0.8.10"
