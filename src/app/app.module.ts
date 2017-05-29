@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppRoutingModule, appRoutingComponent } from './app.routing.module';
+import { AppRoutingModule, appRoutingComponent } from './app-routing.module';
 
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { rootReducer, StoreType } from './reducers';
