@@ -44,6 +44,8 @@ module.exports = webpackMerge(config({ env: ENV }), {
                     '@angular/http',
                     '@angular/router',
                     '@angularclass/hmr',
+                    '@ngrx/core',
+                    '@ngrx/store',
                     'rxjs',
                 ]
             },
