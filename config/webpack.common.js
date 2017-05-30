@@ -2,10 +2,10 @@ const helpers = require('./helpers');
 const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
+const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
-const AOT = helpers.hasNpmFlag('aot');
 const DEV_SERVER = require('./DEV_SERVER');
 const SPRITESMITH_CONFIG = require('./SPRITESMITH_CONFIG');
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
@@ -27,7 +27,7 @@ module.exports = function(options) {
 
         output: {
             path: helpers.root('dist'),
-            filename: '[name].js',
+            filename: '[name].bundle.js',
             chunkFilename: '[id].chunk.js',
             sourceMapFilename: '[file].map',
         },
@@ -68,6 +68,7 @@ module.exports = function(options) {
                 to: 'assets',
                 ignore: ['favicon.ico']
             }]),
+            new CheckerPlugin(),
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'polyfills',
                 chunks: ['polyfills'],
