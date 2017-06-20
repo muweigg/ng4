@@ -63,5 +63,16 @@
     "webpack-dll-bundles-plugin": "^1.0.0-beta.5",
     "webpack-merge": "^4.1.0",
     "webpack-spritesmith": "^0.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/muweigg/ng4.git"
+  },
+  "bugs": {
+    "url": "https://github.com/muweigg/ng4/issues"
+  },
+  "engines": {
+    "node": ">= 4.2.1",
+    "npm": ">= 3"
   }
 }
