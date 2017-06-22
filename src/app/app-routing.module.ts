@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { PageNotFoundComponent } from './components';
 
-export const appRoutingComponent = [
+export const appRoutingComponents = [
     PageNotFoundComponent
 ]
 
