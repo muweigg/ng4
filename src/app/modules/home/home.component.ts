@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-    title:String = "ng4-start";
+    title: String = "app works!";
 
     constructor() { }
 
