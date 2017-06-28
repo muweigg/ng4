@@ -48,6 +48,7 @@ module.exports = function(options) {
         },
 
         plugins: [
+            new webpack.optimize.ModuleConcatenationPlugin(),
             new webpack.NoEmitOnErrorsPlugin(),
             new webpack.LoaderOptionsPlugin({
                 debug: !isProd,
