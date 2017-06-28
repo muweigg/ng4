@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HomeRoutingModule, homeRoutingComponent } from './home-routing.module';
+import { HomeRoutingModule, homeRoutingComponents } from './home-routing.module';
 
 @NgModule({
     declarations: [
-        homeRoutingComponent
+        homeRoutingComponents
     ],
     imports: [
         CommonModule,
