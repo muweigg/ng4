@@ -17,13 +17,13 @@ export class DynamicComponentService {
         private injector: Injector
     ) { }
 
-	/**
-	 * Gets the root view container to inject the component to.
-	 * 
-	 * @returns {ComponentRef<any>}
-	 * 
-	 * @memberOf DynamicComponentService
-	 */
+    /**
+     * Gets the root view container to inject the component to.
+     * 
+     * @returns {ComponentRef<any>}
+     * 
+     * @memberOf DynamicComponentService
+     */
     getRootViewContainer(): ComponentRef<any> {
         const rootComponents = this.appRef['_rootComponents'];
         if (rootComponents.length) return rootComponents[0];
@@ -31,38 +31,38 @@ export class DynamicComponentService {
         throw new Error('View Container not found!');
     }
 
-	/**
-	 * Gets the html element for a component ref.
-	 * 
-	 * @param {ComponentRef<any>} componentRef
-	 * @returns {HTMLElement}
-	 * 
-	 * @memberOf DynamicComponentService
-	 */
+    /**
+     * Gets the html element for a component ref.
+     * 
+     * @param {ComponentRef<any>} componentRef
+     * @returns {HTMLElement}
+     * 
+     * @memberOf DynamicComponentService
+     */
     getComponentRootNode(componentRef: ComponentRef<any>): HTMLElement {
         return (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
     }
 
-	/**
-	 * Gets the root component container html element.
-	 * 
-	 * @returns {HTMLElement}
-	 * 
-	 * @memberOf DynamicComponentService
-	 */
+    /**
+     * Gets the root component container html element.
+     * 
+     * @returns {HTMLElement}
+     * 
+     * @memberOf DynamicComponentService
+     */
     getRootViewContainerNode(): HTMLElement {
         return this.getComponentRootNode(this.getRootViewContainer());
     }
 
-	/**
-	 * Projects the inputs onto the component
-	 * 
-	 * @param {ComponentRef<any>} component
-	 * @param {*} options
-	 * @returns {ComponentRef<any>}
-	 * 
-	 * @memberOf DynamicComponentService
-	 */
+    /**
+     * Projects the inputs onto the component
+     * 
+     * @param {ComponentRef<any>} component
+     * @param {*} options
+     * @returns {ComponentRef<any>}
+     * 
+     * @memberOf DynamicComponentService
+     */
     projectComponentInputs(component: ComponentRef<any>, options: any): ComponentRef<any> {
         if (options) {
             const props = Object.getOwnPropertyNames(options);
@@ -74,19 +74,19 @@ export class DynamicComponentService {
         return component;
     }
 
-	/**
-	 * Appends a component to a last location in component
-	 * 
-	 * Note: need to be destroyed manually
-	 * 
-	 * @template T
-	 * @param {Type<T>} componentClass
-	 * @param {*} [options={}]
-	 * @param {Element} [location=this.getRootViewContainerNode()]
-	 * @returns {ComponentRef<any>}
-	 * 
-	 * @memberOf DynamicComponentService
-	 */
+    /**
+     * Appends a component to a last location in component
+     * 
+     * Note: need to be destroyed manually
+     * 
+     * @template T
+     * @param {Type<T>} componentClass
+     * @param {*} [options={}]
+     * @param {Element} [location=this.getRootViewContainerNode()]
+     * @returns {ComponentRef<any>}
+     * 
+     * @memberOf DynamicComponentService
+     */
     appendComponent<T>(
         componentClass: Type<T>,
         options: any = {},
@@ -110,13 +110,13 @@ export class DynamicComponentService {
         return componentRef;
     }
 
-	/**
-	 * Gets the root view container reference to inject the component to.
-	 * 
-	 * @returns {ComponentRef<any>}
-	 * 
-	 * @memberOf DynamicComponentService
-	 */
+    /**
+     * Gets the root view container reference to inject the component to.
+     * 
+     * @returns {ComponentRef<any>}
+     * 
+     * @memberOf DynamicComponentService
+     */
     getRootViewContainerRef(): ViewContainerRef {
         const appInstance = this.appRef.components[0].instance;
         const appName = this.appRef.componentTypes[0].name;
@@ -126,17 +126,17 @@ export class DynamicComponentService {
         throw new Error(`Missing 'viewContainerRef' declaration in ${appName} constructor`);
     }
 
-	/**
-	 * Appends a component to a adjacent location
-	 * 
-	 * @template T
-	 * @param {Type<T>} componentClass
-	 * @param {*} [options={}]
-	 * @param {ViewContainerRef} [location=this.getRootViewContainerRef()]
-	 * @returns {ComponentRef<any>}
-	 * 
-	 * @memberOf DynamicComponentService
-	 */
+    /**
+     * Appends a component to a adjacent location
+     * 
+     * @template T
+     * @param {Type<T>} componentClass
+     * @param {*} [options={}]
+     * @param {ViewContainerRef} [location=this.getRootViewContainerRef()]
+     * @returns {ComponentRef<any>}
+     * 
+     * @memberOf DynamicComponentService
+     */
     appendComponentToViewRef<T>(
         componentClass: Type<T>,
         options: any = {},
