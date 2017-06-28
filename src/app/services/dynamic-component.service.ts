@@ -9,8 +9,6 @@ import { ApplicationRef, ComponentFactoryResolver, ComponentRef, Injectable, Inj
 @Injectable()
 export class DynamicComponentService {
 
-    private _container: ComponentRef<any>;
-
     constructor(
         private appRef: ApplicationRef,
         private componentFactoryResolver: ComponentFactoryResolver,
@@ -29,6 +27,22 @@ export class DynamicComponentService {
         if (rootComponents.length) return rootComponents[0];
 
         throw new Error('View Container not found!');
+    }
+
+    /**
+     * Gets the root view container reference to inject the component to.
+     * 
+     * @returns {ComponentRef<any>}
+     * 
+     * @memberOf DynamicComponentService
+     */
+    getRootViewContainerRef(): ViewContainerRef {
+        const appInstance = this.appRef.components[0].instance;
+        const appName = this.appRef.componentTypes[0].name;
+
+        if (appInstance.viewContainerRef) return appInstance.viewContainerRef;
+
+        throw new Error(`Missing 'viewContainerRef' declaration in ${appName} constructor`);
     }
 
     /**
@@ -90,61 +104,28 @@ export class DynamicComponentService {
     appendComponent<T>(
         componentClass: Type<T>,
         options: any = {},
-        location: Element = this.getRootViewContainerNode()): ComponentRef<any> {
+        location: Element | ViewContainerRef = document.body): ComponentRef<any> {
 
+        let componentRef: ComponentRef<any>;
         let componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
-        let componentRef = componentFactory.create(this.injector);
-        let componentRootNode = this.getComponentRootNode(componentRef);
+
+        if (!(location instanceof Element)) {
+            componentRef = location.createComponent(componentFactory, location.length, this.injector);
+            this.projectComponentInputs(componentRef, options);
+            return componentRef;
+        }
+
+        componentRef = componentFactory.create(this.injector);
 
         this.appRef.attachView(componentRef.hostView);
-
-        // project the options passed to the component instance
-        this.projectComponentInputs(componentRef, options);
 
         componentRef.onDestroy(() => {
             this.appRef.detachView(componentRef.hostView);
         });
 
-        location.appendChild(componentRootNode);
-
-        return componentRef;
-    }
-
-    /**
-     * Gets the root view container reference to inject the component to.
-     * 
-     * @returns {ComponentRef<any>}
-     * 
-     * @memberOf DynamicComponentService
-     */
-    getRootViewContainerRef(): ViewContainerRef {
-        const appInstance = this.appRef.components[0].instance;
-        const appName = this.appRef.componentTypes[0].name;
-
-        if (appInstance.viewContainerRef) return appInstance.viewContainerRef;
-
-        throw new Error(`Missing 'viewContainerRef' declaration in ${appName} constructor`);
-    }
-
-    /**
-     * Appends a component to a adjacent location
-     * 
-     * @template T
-     * @param {Type<T>} componentClass
-     * @param {*} [options={}]
-     * @param {ViewContainerRef} [location=this.getRootViewContainerRef()]
-     * @returns {ComponentRef<any>}
-     * 
-     * @memberOf DynamicComponentService
-     */
-    appendComponentToViewRef<T>(
-        componentClass: Type<T>,
-        options: any = {},
-        location: ViewContainerRef = this.getRootViewContainerRef()): ComponentRef<any> {
-
-        let componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentClass);
-        let componentRef = location.createComponent(componentFactory, location.length, this.injector);
         this.projectComponentInputs(componentRef, options);
+
+        (location as Element).appendChild(this.getComponentRootNode(componentRef));
 
         return componentRef;
     }
