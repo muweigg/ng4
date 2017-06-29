@@ -42,5 +42,6 @@ module.exports = webpackMerge(config({ env: ENV }), {
             mainPath: './src/main.ts',
             skipCodeGeneration: false
         }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
     ]
 });
