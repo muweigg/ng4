@@ -1,7 +1,7 @@
 module.exports = {
-    port: 4444,
+    port: 4422,
     host: '0.0.0.0',
-    historyApiFallback: true,
+    // historyApiFallback: { disableDotRule: true },
     compress: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
     watchOptions: {
