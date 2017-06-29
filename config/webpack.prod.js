@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const { SuppressExtractedTextChunksWebpackPlugin } = require('@angular/cli/plugins/webpack');
+const SuppressExtractedTextChunksWebpackPlugin = require('./plugins/SuppressExtractedTextChunksWebpackPlugin');
 const { AotPlugin } = require('@ngtools/webpack');
 
 const ENV = process.env.ENV = process.env.NODE_ENV = "production";
