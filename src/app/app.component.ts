@@ -9,8 +9,6 @@ export class AppComponent implements OnInit {
     
     constructor() { }
 
-    ngOnInit() {
-        PROD_ENV || console.log('is ready.');
-    }
+    ngOnInit() { }
     
 }
