@@ -16,6 +16,10 @@ export function stateSetter(reducer: ActionReducer<any>): ActionReducer<any> {
     };
 }
 
-export const rootReducer = compose(stateSetter, combineReducers)({
+export const composeReducer = compose(stateSetter, combineReducers)({
     // Add your reducers here
 });
+
+export function rootReducer (state: any, action: any) {
+    return composeReducer(state, action);
+}
