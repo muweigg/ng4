@@ -19,6 +19,11 @@ npm run serve
 or
 yarn serve
 
+# Enable hot module replacement
+npm run serve:hot
+or
+yarn serve:hot
+
 # Build for production (uses aot compiler)
 npm run build:aot
 or
