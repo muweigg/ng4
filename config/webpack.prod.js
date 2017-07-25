@@ -22,10 +22,10 @@ module.exports = webpackMerge(config({ env: ENV }), {
                 test: /\.(s[ac]|c)ss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader?importLoaders=1&url=false', 'postcss-loader', 'sass-loader']
+                    use: ['css-loader?importLoaders=1', 'postcss-loader', 'sass-loader']
                 }),
                 include: [COMMON_STYLE]
-            }
+            },
         ]
     },
     plugins: [

@@ -43,7 +43,9 @@ module.exports = function(options) {
                 { test: /\.ejs$/, use: ['ejs-loader'] },
                 { test: /\.json$/, use: ['json-loader'] },
                 { test: /\.css$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
-                { test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] }
+                { test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
+                { test: /\.(jpe?g|png|gif)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/fonts/&limit=10240` },
+                { test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/fonts/` },
             ]
         },
 
@@ -63,11 +65,11 @@ module.exports = function(options) {
             new webpack.DefinePlugin({
                 'PROD_ENV': JSON.stringify(isProd)
             }),
-            new CopyPlugin([{
+            /* new CopyPlugin([{
                 from: helpers.root('src/assets'),
                 to: 'assets',
                 ignore: ['favicon.ico']
-            }]),
+            }]), */
             new CheckerPlugin(),
             new webpack.optimize.CommonsChunkPlugin({
                 name: 'polyfills',
