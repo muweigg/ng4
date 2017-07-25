@@ -6,7 +6,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppRoutingModule, appRoutingComponents } from './app-routing.module';
 
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
-import { metaReducers, SetStateAction, StoreType } from './reducers';
+import { metaReducers, SetState, StoreType } from './reducers';
 import 'rxjs/add/operator/take';
 
 import { AppComponent } from './app.component';
@@ -37,7 +37,7 @@ export class AppModule {
         console.log('HMR store', JSON.stringify(store, null, 2));
 
         if (store.state) {
-            this._store.dispatch(new SetStateAction(store.state));
+            this._store.dispatch(new SetState(store.state));
         }
 
         if ('restoreInputValues' in store) {
