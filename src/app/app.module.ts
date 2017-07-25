@@ -6,7 +6,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppRoutingModule, appRoutingComponents } from './app-routing.module';
 
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
-import { rootReducer, StoreType } from './reducers';
+import { metaReducers, SetStateAction, StoreType } from './reducers';
 import 'rxjs/add/operator/take';
 
 import { AppComponent } from './app.component';
@@ -18,7 +18,10 @@ import { PageNotFoundComponent } from './components/404/page-not-found.component
         FormsModule,
         HttpModule,
         AppRoutingModule,
-        StoreModule.provideStore(rootReducer)
+        StoreModule.forRoot({
+            // Add your reducers here
+            
+        }, { metaReducers })
     ],
     declarations: [
         appRoutingComponents,
@@ -34,7 +37,7 @@ export class AppModule {
         console.log('HMR store', JSON.stringify(store, null, 2));
 
         if (store.state) {
-            this._store.dispatch({ type: 'SET_ROOT_STATE', payload: store.state });
+            this._store.dispatch(new SetStateAction(store.state));
         }
 
         if ('restoreInputValues' in store) {
