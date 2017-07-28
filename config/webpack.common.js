@@ -39,12 +39,12 @@ module.exports = function(options) {
 
         module: {
             rules: [
-                { test: /\.html$/, use: ['raw-loader'] },
-                { test: /\.ejs$/, use: ['ejs-loader'] },
+                { test: /\.html$/, use: ['html-loader'] },
+                { test: /\.ejs$/, use: ['ejs-tpl-loader'] },
                 { test: /\.json$/, use: ['json-loader'] },
                 { test: /\.css$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
                 { test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
-                { test: /\.(jpe?g|png|gif)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/fonts/&limit=10240` },
+                { test: /\.(jpe?g|png|gif)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/images/&limit=10240` },
                 { test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/fonts/` },
             ]
         },
@@ -56,9 +56,27 @@ module.exports = function(options) {
                 minimize: isProd,
                 options: {
                     context: '',
-                    "sassLoader": {
-                        "sourceMap": false,
-                        "includePaths": []
+                    sassLoader: {
+                        sourceMap: false,
+                        includePaths: []
+                    },
+                    htmlLoader: {
+                        minimize: true,
+                        removeAttributeQuotes: false,
+                        caseSensitive: true,
+                        customAttrSurround: [
+                            [/#/, /(?:)/],
+                            [/\*/, /(?:)/],
+                            [/\[?\(?/, /(?:)/]
+                        ],
+                        customAttrAssign: [/\)?\]?=/],
+                        attrs: ['img:src', 'img:data-src'],
+                        interpolate: 'require'
+                    },
+                    ejsTplLoader: {
+                        minimize: false,
+                        attrs: ['img:src', 'img:data-src'],
+                        interpolate: 'require'
                     }
                 }
             }),

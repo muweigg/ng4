@@ -2,13 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'home',
-    template: `
-        <h1>
-            {{ title }}
-            <br>
-            this is a lazy load module.
-        </h1>
-    `
+    templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
 

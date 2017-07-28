@@ -33,7 +33,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
         new ExtractTextPlugin('[name].[contenthash].css'),
         new webpack.optimize.UglifyJsPlugin({
             mangle: { screw_ie8: true },
-            compress: { screw_ie8: true, warnings: false },
+            compress: { screw_ie8: true, warnings: false, drop_console: true },
             sourceMap: false
         }),
         new SuppressExtractedTextChunksWebpackPlugin(),
