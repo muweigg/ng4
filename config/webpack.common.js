@@ -61,7 +61,7 @@ module.exports = function(options) {
                         includePaths: []
                     },
                     htmlLoader: {
-                        minimize: true,
+                        minimize: false,
                         removeAttributeQuotes: false,
                         caseSensitive: true,
                         customAttrSurround: [
