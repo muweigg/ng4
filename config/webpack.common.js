@@ -6,8 +6,9 @@ const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
-const DEV_SERVER = require('./DEV_SERVER');
-const SPRITESMITH_CONFIG = require('./SPRITESMITH_CONFIG');
+const devServer = require('./devServer');
+const spritesmithConfig = require('./spritesmithConfig');
+const htmlLoaderConfig = require('./htmlLoaderConfig');
 const INDEX_HTML = helpers.root('src/index.html');
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
 const entryPoints = ["manifest", "polyfills", "vendor", "common", "main"];
@@ -18,7 +19,7 @@ module.exports = function(options) {
 
     return {
 
-        devServer: DEV_SERVER,
+        devServer: devServer,
 
         entry: {
             polyfills: [helpers.root('src/polyfills.ts')],
@@ -57,28 +58,9 @@ module.exports = function(options) {
                 minimize: isProd,
                 options: {
                     context: '',
-                    sassLoader: {
-                        sourceMap: false,
-                        includePaths: []
-                    },
-                    htmlLoader: {
-                        minimize: false,
-                        removeAttributeQuotes: false,
-                        caseSensitive: true,
-                        customAttrSurround: [
-                            [/#/, /(?:)/],
-                            [/\*/, /(?:)/],
-                            [/\[?\(?/, /(?:)/]
-                        ],
-                        customAttrAssign: [/\)?\]?=/],
-                        attrs: ['img:src', 'img:data-src'],
-                        interpolate: 'require'
-                    },
-                    ejsTplLoader: {
-                        minimize: false,
-                        attrs: ['img:src', 'img:data-src'],
-                        interpolate: 'require'
-                    }
+                    sassLoader: { sourceMap: false, includePaths: [] },
+                    htmlLoader: htmlLoaderConfig,
+                    ejsTplLoader: htmlLoaderConfig
                 }
             }),
             new webpack.DefinePlugin({
@@ -124,7 +106,7 @@ module.exports = function(options) {
                 defaultAttribute: 'defer'
             }),
             new InlineManifestWebpackPlugin(),
-            ...SPRITESMITH_CONFIG,
+            ...spritesmithConfig,
         ]
     }
 }
