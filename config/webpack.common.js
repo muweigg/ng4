@@ -8,6 +8,7 @@ const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 
 const DEV_SERVER = require('./DEV_SERVER');
 const SPRITESMITH_CONFIG = require('./SPRITESMITH_CONFIG');
+const INDEX_HTML = helpers.root('src/index.html');
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
 const entryPoints = ["manifest", "polyfills", "vendor", "common", "main"];
 
@@ -39,13 +40,13 @@ module.exports = function(options) {
 
         module: {
             rules: [
-                { test: /\.html$/, use: ['html-loader'] },
-                { test: /\.ejs$/, use: ['ejs-tpl-loader'] },
+                { test: /\.html$/, use: ['html-loader'], exclude: [INDEX_HTML] },
+                { test: /\.html$/, use: ['ejs-tpl-loader'], include: [INDEX_HTML] },
                 { test: /\.json$/, use: ['json-loader'] },
                 { test: /\.css$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
                 { test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
-                { test: /\.(jpe?g|png|gif)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/images/&limit=10240` },
-                { test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/fonts/` },
+                { test: /\.(jpe?g|png|gif|svg)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/images/&limit=10240` },
+                { test: /\.(eot|woff2?|ttf)([\?]?.*)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/fonts/` },
             ]
         },
 
@@ -104,7 +105,7 @@ module.exports = function(options) {
             }),
             new HtmlPlugin({
                 filename: 'index.html',
-                template: helpers.root('src/index.ejs'),
+                template: helpers.root('src/index.html'),
                 favicon: helpers.root('src/assets/favicon.ico'),
                 chunksSortMode: function sort(left, right) {
                     let leftIndex = entryPoints.indexOf(left.names[0]);
