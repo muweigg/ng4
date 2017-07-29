@@ -46,8 +46,8 @@ module.exports = function(options) {
                 { test: /\.json$/, use: ['json-loader'] },
                 { test: /\.css$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
                 { test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
-                { test: /\.(jpe?g|png|gif|svg)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/images/&limit=10240` },
-                { test: /\.(eot|woff2?|ttf)([\?]?.*)$/, use: `url-loader?name=[${isProd ? 'hash' : 'name'}].[ext]&outputPath=assets/fonts/` },
+                { test: /\.(jpe?g|png|gif|svg)$/, use: 'url-loader?limit=10240' },
+                { test: /\.(eot|woff2?|ttf)([\?]?.*)$/, use: 'file-loader' },
             ]
         },
 
@@ -58,9 +58,11 @@ module.exports = function(options) {
                 minimize: isProd,
                 options: {
                     context: '',
-                    sassLoader: { sourceMap: false, includePaths: [] },
                     htmlLoader: htmlLoaderConfig,
-                    ejsTplLoader: htmlLoaderConfig
+                    ejsTplLoader: htmlLoaderConfig,
+                    sassLoader: { sourceMap: false, includePaths: [] },
+                    urlLoader: { name: '[path][hash].[ext]', outputPath: url => url.replace('src', '.') },
+                    fileLoader: { name: '[path][hash].[ext]', outputPath: url => url.replace('src', '.') },
                 }
             }),
             new webpack.DefinePlugin({

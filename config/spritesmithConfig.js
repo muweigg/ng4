@@ -8,11 +8,11 @@ function getConfig (name) {
             glob: '**/*.png'
         },
         target: {
-            image: helpers.root(`src/sprites/${name}.png`),
+            image: helpers.root(`src/assets/images/${name}.png`),
             css: helpers.root(`src/sprites/${name}.scss`)
         },
         apiOptions: {
-            cssImageRef: `../sprites/${name}.png`
+            cssImageRef: `../assets/images/${name}.png`
         },
         spritesmithOptions: {
             padding: 10,

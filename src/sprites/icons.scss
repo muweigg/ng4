@@ -18,13 +18,13 @@ $angular-width: 250px;
 $angular-height: 250px;
 $angular-total-width: 250px;
 $angular-total-height: 250px;
-$angular-image: '../sprites/icons.png';
-$angular: (0px, 0px, 0px, 0px, 250px, 250px, 250px, 250px, '../sprites/icons.png', 'angular', );
+$angular-image: '../assets/images/icons.png';
+$angular: (0px, 0px, 0px, 0px, 250px, 250px, 250px, 250px, '../assets/images/icons.png', 'angular', );
 $spritesheet-width: 250px;
 $spritesheet-height: 250px;
-$spritesheet-image: '../sprites/icons.png';
+$spritesheet-image: '../assets/images/icons.png';
 $spritesheet-sprites: ($angular, );
-$spritesheet: (250px, 250px, '../sprites/icons.png', $spritesheet-sprites, );
+$spritesheet: (250px, 250px, '../assets/images/icons.png', $spritesheet-sprites, );
 
 // The provided mixins are intended to be used with the array-like variables
 //
