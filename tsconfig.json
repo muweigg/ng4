@@ -3,10 +3,10 @@
         "outDir": "../out-tsc/app",
         "baseUrl": "",
         "target": "es5",
-        "module": "es2015",
+        "module": "esnext",
         "lib": [
             "dom",
-            "es2015"
+            "esnext"
         ],
         "moduleResolution": "node",
         "experimentalDecorators": true,

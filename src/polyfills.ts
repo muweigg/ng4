@@ -56,7 +56,7 @@ import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 if (!PROD_ENV) {
-    require('zone.js/dist/long-stack-trace-zone');
+    import('zone.js/dist/long-stack-trace-zone');
 }
 
 
