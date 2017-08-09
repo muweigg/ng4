@@ -1,6 +1,6 @@
 {
   "name": "ng4",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "This is a quick start creating an angular 4 application with webpack.",
   "scripts": {
     "build:aot": "webpack --config config/webpack.prod.js --progress",
@@ -32,7 +32,7 @@
     "@angular/compiler-cli": "^4.3.3",
     "@ngtools/webpack": "^1.5.5",
     "@types/core-js": "^0.9.42",
-    "@types/node": "^8.0.19",
+    "@types/node": "^8.0.20",
     "add-asset-html-webpack-plugin": "^2.1.0",
     "angular2-template-loader": "^0.6.2",
     "autoprefixer": "^7.1.2",
@@ -59,8 +59,8 @@
     "tslib": "^1.7.1",
     "typescript": "^2.4.2",
     "url-loader": "^0.5.9",
-    "webpack": "^3.5.1",
-    "webpack-dev-server": "^2.7.0",
+    "webpack": "^3.5.2",
+    "webpack-dev-server": "^2.7.1",
     "webpack-dll-bundles-plugin": "^1.0.0-beta.5",
     "webpack-merge": "^4.1.0",
     "webpack-spritesmith": "^0.3.3"
