@@ -8,6 +8,7 @@ const SuppressExtractedTextChunksWebpackPlugin = require('./plugins/SuppressExtr
 const { AotPlugin } = require('@ngtools/webpack');
 
 const ENV = process.env.ENV = process.env.NODE_ENV = "production";
+const AOT = helpers.hasNpmFlag('aot');
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
 
 module.exports = webpackMerge(config({ env: ENV }), {
@@ -40,7 +41,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
         new AotPlugin({
             tsConfigPath: './tsconfig.json',
             mainPath: './src/main.ts',
-            skipCodeGeneration: false
+            skipCodeGeneration: !AOT
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
     ]
