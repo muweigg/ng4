@@ -1,7 +1,5 @@
 {
     "compilerOptions": {
-        "outDir": "../out-tsc/app",
-        "baseUrl": "",
         "target": "es5",
         "module": "esnext",
         "lib": [
@@ -12,8 +10,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "sourceMap": true,
-        "importHelpers": true,
-        "rootDir": "."
+        "importHelpers": true
     },
     "exclude": [
         "node_modules",
