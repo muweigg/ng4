@@ -32,7 +32,7 @@
   "devDependencies": {
     "@angular/compiler-cli": "^4.3.5",
     "@ngtools/webpack": "^1.6.1",
-    "@types/core-js": "^0.9.42",
+    "@types/core-js": "^0.9.43",
     "@types/node": "^8.0.24",
     "add-asset-html-webpack-plugin": "^2.1.1",
     "angular2-template-loader": "^0.6.2",
@@ -58,7 +58,7 @@
     "style-loader": "^0.18.2",
     "ts-node": "^3.3.0",
     "tslib": "^1.7.1",
-    "typescript": "^2.4.2",
+    "typescript": "^2.5.1",
     "url-loader": "^0.5.9",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.7.1",
