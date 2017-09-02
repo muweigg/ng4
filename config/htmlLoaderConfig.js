@@ -1,5 +1,5 @@
 module.exports = {
-    minimize: false,
+    minimize: true,
     removeAttributeQuotes: false,
     caseSensitive: true,
     customAttrSurround: [
