@@ -1,12 +1,12 @@
-# ng4
-This is a quick start creating an angular 4 application with webpack.
+# ng5
+This is a quick start creating an angular 5 application with webpack.
 
 ### Quick start
 ```bash
 # Clone my repo
-git clone https://github.com/muweigg/ng4.git
+git clone https://github.com/muweigg/ng5.git
 
-# Change directory to ng4
+# Change directory to ng5
 cd ng4
 
 # Install dependencies
