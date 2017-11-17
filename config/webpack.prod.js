@@ -5,7 +5,7 @@ const webpackMerge = require('webpack-merge');
 const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const SuppressExtractedTextChunksWebpackPlugin = require('./plugins/SuppressExtractedTextChunksWebpackPlugin');
-const { AotPlugin } = require('@ngtools/webpack');
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 const ENV = process.env.ENV = process.env.NODE_ENV = "production";
 const AOT = helpers.hasNpmFlag('aot');
@@ -18,12 +18,11 @@ module.exports = webpackMerge(config({ env: ENV }), {
     },
     module: {
         rules: [
-            { test: /\.ts$/, use: ['@ngtools/webpack'] },
+            { test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/, use: ['@ngtools/webpack'] },
             {
                 test: /\.(s[ac]|c)ss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    publicPath: '.',
                     use: ['css-loader?importLoaders=1', 'postcss-loader', 'sass-loader']
                 }),
                 include: [COMMON_STYLE]
@@ -39,7 +38,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
             sourceMap: false
         }),
         new SuppressExtractedTextChunksWebpackPlugin(),
-        new AotPlugin({
+        new AngularCompilerPlugin({
             tsConfigPath: './tsconfig.json',
             mainPath: './src/main.ts',
             skipCodeGeneration: !AOT

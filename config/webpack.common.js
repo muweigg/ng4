@@ -56,7 +56,7 @@ module.exports = function(options) {
         plugins: [
             new webpack.NoEmitOnErrorsPlugin(),
             new webpack.HashedModuleIdsPlugin(),
-            new webpack.optimize.ModuleConcatenationPlugin(),
+            // new webpack.optimize.ModuleConcatenationPlugin(),
             new webpack.LoaderOptionsPlugin({
                 debug: !isProd,
                 minimize: isProd,
