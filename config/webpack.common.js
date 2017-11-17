@@ -5,6 +5,7 @@ const HtmlPlugin = require('html-webpack-plugin');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
+const rxPaths = require('rxjs/_esm5/path-mapping');
 
 const devServer = require('./devServer');
 const spritesmithConfig = require('./spritesmithConfig');
@@ -36,7 +37,8 @@ module.exports = function(options) {
 
         resolve: {
             extensions: ['.ts', '.js'],
-            modules: [helpers.root('node_modules')]
+            modules: [helpers.root('node_modules')],
+            alias: rxPaths()
         },
 
         module: {
@@ -53,6 +55,8 @@ module.exports = function(options) {
 
         plugins: [
             new webpack.NoEmitOnErrorsPlugin(),
+            new webpack.HashedModuleIdsPlugin(),
+            new webpack.optimize.ModuleConcatenationPlugin(),
             new webpack.LoaderOptionsPlugin({
                 debug: !isProd,
                 minimize: isProd,
