@@ -7,7 +7,7 @@ This is a quick start creating an angular 5 application with webpack.
 git clone https://github.com/muweigg/ng5.git
 
 # Change directory to ng5
-cd ng4
+cd ng5
 
 # Install dependencies
 npm install
