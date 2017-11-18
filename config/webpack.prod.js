@@ -23,6 +23,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
                 test: /\.(s[ac]|c)ss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
+                    publicPath: '.',
                     use: ['css-loader?importLoaders=1', 'postcss-loader', 'sass-loader']
                 }),
                 include: [COMMON_STYLE]
