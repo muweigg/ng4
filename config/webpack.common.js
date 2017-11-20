@@ -43,17 +43,23 @@ module.exports = function(options) {
 
         module: {
             rules: [
-                { test: /\.html$/, use: ['html-loader'], exclude: [INDEX_HTML] },
                 { test: /\.html$/, use: ['ejs-tpl-loader'], include: [INDEX_HTML] },
                 { test: /\.json$/, use: ['json-loader'] },
-                { test: /\.css$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
+                { test: /\.css$/,  use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
                 { test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
+                {
+                    test: /\.html$/,
+                    use: [{
+                        loader: 'html-loader',
+                        options: htmlLoaderConfig
+                    }], exclude: [INDEX_HTML]
+                },
                 {
                     test: /\.(jpe?g|png|gif|svg)$/,
                     use: [{
                         loader: 'url-loader',
                         options: {
-                            limit: 10240,
+                            limit: 1,
                             name: '[path][name].[hash].[ext]',
                             outputPath: url => url.replace(/src|node_modules/, '.')
                         }
@@ -75,18 +81,6 @@ module.exports = function(options) {
         plugins: [
             new webpack.NoEmitOnErrorsPlugin(),
             new webpack.HashedModuleIdsPlugin(),
-            new webpack.LoaderOptionsPlugin({
-                debug: !isProd,
-                minimize: isProd,
-                options: {
-                    context: '',
-                    htmlLoader: htmlLoaderConfig,
-                    ejsTplLoader: htmlLoaderConfig,
-                    sassLoader: { sourceMap: false, includePaths: [] },
-                    // urlLoader: { name: '[path][name].[hash].[ext]', outputPath: url => url.replace('src', '.') },
-                    // fileLoader: { name: '[path][name].[hash].[ext]', outputPath: url => url.replace('src', '.') },
-                }
-            }),
             new webpack.DefinePlugin({
                 'PROD_ENV': JSON.stringify(isProd)
             }),
