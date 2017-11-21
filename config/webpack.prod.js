@@ -47,10 +47,10 @@ module.exports = webpackMerge(config({ env: ENV }), {
             sourceMap: false,
             parallel: true,
             uglifyOptions: {
-                mangle: { ie8: true },
-                compress: { ie8: true, warnings: false, drop_console: true },
+                compress: { warnings: false, drop_console: true },
                 output: { comments: false },
-            }
+                ie8: true
+            },
         }),
     ]
 });
