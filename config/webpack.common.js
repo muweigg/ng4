@@ -59,7 +59,7 @@ module.exports = function(options) {
                     use: [{
                         loader: 'url-loader',
                         options: {
-                            limit: 1,
+                            limit: 10240,
                             name: '[path][name].[hash].[ext]',
                             outputPath: url => url.replace(/src|node_modules/, '.')
                         }
@@ -80,13 +80,12 @@ module.exports = function(options) {
 
         plugins: [
             new webpack.NoEmitOnErrorsPlugin(),
-            new webpack.HashedModuleIdsPlugin(),
             new webpack.DefinePlugin({
                 'PROD_ENV': JSON.stringify(isProd)
             }),
             /* new CopyPlugin([{
                 from: helpers.root('src/assets'),
-                to: 'assets',
+                to: 'assets/[path][name].[hash].[ext]',
                 ignore: ['favicon.ico']
             }]), */
             new CheckerPlugin(),

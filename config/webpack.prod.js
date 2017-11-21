@@ -6,6 +6,7 @@ const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const SuppressExtractedTextChunksWebpackPlugin = require('./plugins/SuppressExtractedTextChunksWebpackPlugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
+const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin
 
 const ENV = process.env.ENV = process.env.NODE_ENV = "production";
 const AOT = helpers.hasNpmFlag('aot');
@@ -18,12 +19,11 @@ module.exports = webpackMerge(config({ env: ENV }), {
     },
     module: {
         rules: [
-            { test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/, use: ['@ngtools/webpack'] },
+            { test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/, use: ['@angular-devkit/build-optimizer/webpack-loader', '@ngtools/webpack'] },
             {
                 test: /\.(s[ac]|c)ss$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    publicPath: '.',
                     use: ['css-loader?importLoaders=1', 'postcss-loader', 'sass-loader']
                 }),
                 include: [COMMON_STYLE]
@@ -33,17 +33,19 @@ module.exports = webpackMerge(config({ env: ENV }), {
     plugins: [
         new CleanPlugin(['dist'], { root: helpers.root() }),
         new ExtractTextPlugin('[name].[contenthash].css'),
+        new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             mangle: { screw_ie8: true },
             compress: { screw_ie8: true, warnings: false, drop_console: true },
             sourceMap: false
         }),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new SuppressExtractedTextChunksWebpackPlugin(),
         new AngularCompilerPlugin({
             tsConfigPath: './tsconfig.json',
             mainPath: './src/main.ts',
             skipCodeGeneration: !AOT
         }),
-        new webpack.optimize.ModuleConcatenationPlugin(),
+        new PurifyPlugin(),
     ]
 });
