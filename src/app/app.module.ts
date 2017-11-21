@@ -7,6 +7,7 @@ import { AppRoutingModule, appRoutingComponents } from './app-routing.module';
 
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { metaReducers, SetState, StoreType } from './reducers';
+import { take } from 'rxjs/operators/take';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/404/page-not-found.component';
@@ -51,7 +52,7 @@ export class AppModule {
 
     hmrOnDestroy(store: StoreType) {
         const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-        this._store.take(1).subscribe(s => store.state = s);
+        this._store.pipe( take(1) ).subscribe(s => store.state = s);
         store.disposeOldHosts = createNewHosts(cmpLocation);
         store.restoreInputValues = createInputTransfer();
         removeNgStyles();

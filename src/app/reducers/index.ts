@@ -1,5 +1,4 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import 'rxjs/add/operator/take';
 
 export const SET_ROOT_STATE = 'SET_ROOT_STATE';
 
