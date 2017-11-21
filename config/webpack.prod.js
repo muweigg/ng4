@@ -35,12 +35,6 @@ module.exports = webpackMerge(config({ env: ENV }), {
         new CleanPlugin(['dist'], { root: helpers.root() }),
         new ExtractTextPlugin('[name].[contenthash].css'),
         new webpack.HashedModuleIdsPlugin(),
-        /* new webpack.optimize.UglifyJsPlugin({
-            mangle: { screw_ie8: true },
-            compress: { screw_ie8: true, warnings: false, drop_console: true },
-            output: { comments: false },
-            sourceMap: false
-        }), */
         new webpack.optimize.ModuleConcatenationPlugin(),
         new SuppressExtractedTextChunksWebpackPlugin(),
         new AngularCompilerPlugin({
