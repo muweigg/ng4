@@ -32,10 +32,10 @@ module.exports = webpackMerge(config({ env: ENV }), {
         ]
     },
     plugins: [
-        new CleanPlugin(['dist'], { root: helpers.root() }),
-        new ExtractTextPlugin('[name].[contenthash].css'),
         new webpack.HashedModuleIdsPlugin(),
         new webpack.optimize.ModuleConcatenationPlugin(),
+        new CleanPlugin(['dist'], { root: helpers.root() }),
+        new ExtractTextPlugin('[name].[contenthash].css'),
         new SuppressExtractedTextChunksWebpackPlugin(),
         new AngularCompilerPlugin({
             tsConfigPath: './tsconfig.json',
