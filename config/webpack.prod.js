@@ -6,7 +6,8 @@ const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const SuppressExtractedTextChunksWebpackPlugin = require('./plugins/SuppressExtractedTextChunksWebpackPlugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
-const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin
+const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const ENV = process.env.ENV = process.env.NODE_ENV = "production";
 const AOT = helpers.hasNpmFlag('aot');
@@ -34,12 +35,12 @@ module.exports = webpackMerge(config({ env: ENV }), {
         new CleanPlugin(['dist'], { root: helpers.root() }),
         new ExtractTextPlugin('[name].[contenthash].css'),
         new webpack.HashedModuleIdsPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
+        /* new webpack.optimize.UglifyJsPlugin({
             mangle: { screw_ie8: true },
             compress: { screw_ie8: true, warnings: false, drop_console: true },
             output: { comments: false },
             sourceMap: false
-        }),
+        }), */
         new webpack.optimize.ModuleConcatenationPlugin(),
         new SuppressExtractedTextChunksWebpackPlugin(),
         new AngularCompilerPlugin({
@@ -48,5 +49,14 @@ module.exports = webpackMerge(config({ env: ENV }), {
             skipCodeGeneration: !AOT
         }),
         new PurifyPlugin(),
+        new UglifyJsPlugin({
+            sourceMap: false,
+            parallel: true,
+            uglifyOptions: {
+                mangle: { ie8: true },
+                compress: { ie8: true, warnings: false, drop_console: true },
+                output: { comments: false },
+            }
+        }),
     ]
 });
