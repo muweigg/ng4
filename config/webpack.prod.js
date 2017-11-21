@@ -19,7 +19,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
     },
     module: {
         rules: [
-            { test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/, use: ['@angular-devkit/build-optimizer/webpack-loader', '@ngtools/webpack'] },
+            { test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/, use: AOT ? ['@angular-devkit/build-optimizer/webpack-loader', '@ngtools/webpack'] : ['@ngtools/webpack'] },
             {
                 test: /\.(s[ac]|c)ss$/,
                 use: ExtractTextPlugin.extract({
