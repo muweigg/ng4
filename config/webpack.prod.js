@@ -49,7 +49,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
             uglifyOptions: {
                 compress: { warnings: false, drop_console: true },
                 output: { comments: false },
-                ie8: true
+                ie8: true,
             },
         }),
     ]
