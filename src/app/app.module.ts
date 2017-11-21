@@ -7,7 +7,6 @@ import { AppRoutingModule, appRoutingComponents } from './app-routing.module';
 
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { metaReducers, SetState, StoreType } from './reducers';
-import 'rxjs/add/operator/take';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/404/page-not-found.component';
