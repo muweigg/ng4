@@ -125,6 +125,9 @@ module.exports = function(options) {
             }),
             new InlineManifestWebpackPlugin(),
             ...spritesmithConfig,
+            /**
+             * If you are interested to drill down to exact dependencies, try analyzing your bundle without ModuleConcatenationPlugin. See issue https://github.com/webpack-contrib/webpack-bundle-analyzer/issues/115 for more discussion.
+             */
             // new BundleAnalyzerPlugin(),
         ]
     }
