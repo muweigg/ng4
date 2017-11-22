@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "This is a quick start creating an angular 5 application with webpack.",
   "scripts": {
-    "stats": "webpack --config config/webpack.prod.js --json > stats.json --progress",
-    "stats:aot": "webpack --config config/webpack.prod.js --json > stats.json --progress",
+    "stats": "webpack --config config/webpack.prod.js --progress --json > stats.json",
+    "stats:aot": "webpack --config config/webpack.prod.js --progress --json > stats.json",
     "build": "webpack --config config/webpack.prod.js --progress",
     "build:aot": "webpack --config config/webpack.prod.js --progress",
     "serve": "webpack-dev-server --config config/webpack.dev.js --progress --profile --watch",
