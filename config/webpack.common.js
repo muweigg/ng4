@@ -6,6 +6,7 @@ const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const rxPaths = require('rxjs/_esm5/path-mapping');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const devServer = require('./devServer');
@@ -125,6 +126,7 @@ module.exports = function(options) {
             }),
             new InlineManifestWebpackPlugin(),
             ...spritesmithConfig,
+            new DashboardPlugin(),
             /**
              * If you are interested to drill down to exact dependencies, try analyzing your bundle without ModuleConcatenationPlugin. See issue https://github.com/webpack-contrib/webpack-bundle-analyzer/issues/115 for more discussion.
              */
