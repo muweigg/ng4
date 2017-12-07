@@ -7,7 +7,7 @@
     "stats:aot": "webpack --config config/webpack.prod.js --progress --json > stats.json",
     "build": "webpack --config config/webpack.prod.js --progress",
     "build:aot": "webpack --config config/webpack.prod.js --progress",
-    "serve": "webpack-dev-server --config config/webpack.dev.js --progress --profile --watch",
+    "serve": "webpack-dashboard -- webpack-dev-server --config config/webpack.dev.js --progress --profile --watch",
     "serve:hot": "npm run serve -- --hot --inline"
   },
   "author": "MuWei",
@@ -71,7 +71,6 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.9.1",
-    "webpack-dashboard": "^1.0.2",
     "webpack-dev-server": "^2.9.7",
     "webpack-dll-bundles-plugin": "^1.0.0-beta.5",
     "webpack-merge": "^4.1.1",
