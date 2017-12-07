@@ -6,7 +6,6 @@ const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const rxPaths = require('rxjs/_esm5/path-mapping');
-const DashboardPlugin = require('webpack-dashboard/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const devServer = require('./devServer');
@@ -39,7 +38,7 @@ module.exports = function(options) {
 
         resolve: {
             extensions: ['.ts', '.js'],
-            // modules: [helpers.root('node_modules')],
+            modules: [helpers.root('node_modules')],
             alias: rxPaths()
         },
 
@@ -63,7 +62,7 @@ module.exports = function(options) {
                         options: {
                             limit: 10240,
                             name: '[path][name].[hash].[ext]',
-                            outputPath: url => url.replace(/^src/, '.')
+                            outputPath: url => url.replace(/src|node_modules/, '.')
                         }
                     }]
                 },
@@ -73,7 +72,7 @@ module.exports = function(options) {
                         loader: 'file-loader',
                         options: {
                             name: '[path][name].[hash].[ext]',
-                            outputPath: url => url.replace(/^src/, '.')
+                            outputPath: url => url.replace(/src|node_modules/, '.')
                         }
                     }]
                 },
@@ -104,10 +103,6 @@ module.exports = function(options) {
                 name: 'manifest',
                 minChunks: Infinity
             }),
-            new webpack.ContextReplacementPlugin(
-                /\@angular(\\|\/)core(\\|\/)esm5/,
-                helpers.root('src')
-            ),
             new HtmlPlugin({
                 filename: 'index.html',
                 template: helpers.root('src/index.html'),
@@ -130,7 +125,6 @@ module.exports = function(options) {
             }),
             new InlineManifestWebpackPlugin(),
             ...spritesmithConfig,
-            new DashboardPlugin(),
             /**
              * If you are interested to drill down to exact dependencies, try analyzing your bundle without ModuleConcatenationPlugin. See issue https://github.com/webpack-contrib/webpack-bundle-analyzer/issues/115 for more discussion.
              */
