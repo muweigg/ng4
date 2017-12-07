@@ -39,7 +39,7 @@ module.exports = function(options) {
 
         resolve: {
             extensions: ['.ts', '.js'],
-            modules: [helpers.root('node_modules')],
+            // modules: [helpers.root('node_modules')],
             alias: rxPaths()
         },
 
@@ -63,7 +63,7 @@ module.exports = function(options) {
                         options: {
                             limit: 10240,
                             name: '[path][name].[hash].[ext]',
-                            outputPath: url => url.replace(/src|node_modules/, '.')
+                            outputPath: url => url.replace(/^src/, '.')
                         }
                     }]
                 },
@@ -73,7 +73,7 @@ module.exports = function(options) {
                         loader: 'file-loader',
                         options: {
                             name: '[path][name].[hash].[ext]',
-                            outputPath: url => url.replace(/src|node_modules/, '.')
+                            outputPath: url => url.replace(/^src/, '.')
                         }
                     }]
                 },
@@ -104,6 +104,10 @@ module.exports = function(options) {
                 name: 'manifest',
                 minChunks: Infinity
             }),
+            new webpack.ContextReplacementPlugin(
+                /\@angular(\\|\/)core(\\|\/)esm5/,
+                helpers.root('src')
+            ),
             new HtmlPlugin({
                 filename: 'index.html',
                 template: helpers.root('src/index.html'),
