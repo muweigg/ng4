@@ -7,7 +7,7 @@
     "stats:aot": "webpack --config config/webpack.prod.js --progress --json > stats.json",
     "build": "webpack --config config/webpack.prod.js --progress",
     "build:aot": "webpack --config config/webpack.prod.js --progress",
-    "serve": "webpack-dashboard -- webpack-dev-server --config config/webpack.dev.js --progress --profile --watch",
+    "serve": "webpack-dev-server --config config/webpack.dev.js --progress --profile --watch",
     "serve:hot": "npm run serve -- --hot --inline"
   },
   "author": "MuWei",
