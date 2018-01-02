@@ -15,7 +15,11 @@ const INDEX_HTML = helpers.root('src/index.html');
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
 const entryPoints = ["manifest", "polyfills", "vendor", "common", "main"];
 
+const tsConfigPath = 'tsconfig.json';
+
 module.exports = function(options) {
+
+    const supportES2015 = helpers.supportES2015(tsConfigPath);
 
     return {
 
@@ -37,7 +41,27 @@ module.exports = function(options) {
         resolve: {
             extensions: ['.ts', '.js'],
             modules: [helpers.root('node_modules')],
-            alias: rxPaths()
+            
+            /**
+             * Add support for lettable operators.
+             *
+             * For existing codebase a refactor is required.
+             * All rxjs operator imports (e.g. `import 'rxjs/add/operator/map'` or `import { map } from `rxjs/operator/map'`
+             * must change to `import { map } from 'rxjs/operators'` (note that all operators are now under that import.
+             * Additionally some operators have changed to to JS keyword constraints (do => tap, catch => catchError)
+             *
+             * Remember to use the `pipe()` method to chain operators, this functinoally makes lettable operators similar to
+             * the old operators usage paradigm.
+             *
+             * For more details see:
+             * https://github.com/ReactiveX/rxjs/blob/master/doc/lettable-operators.md#build-and-treeshaking
+             *
+             * If you are not planning on refactoring your codebase (or not planning on using imports from `rxjs/operators`
+             * comment out this line.
+             *
+             * BE AWARE that not using lettable operators will probably result in significant payload added to your bundle.
+             */
+            alias: helpers.rxjsAlias(supportES2015)
         },
 
         module: {
@@ -60,7 +84,7 @@ module.exports = function(options) {
                         options: {
                             limit: 10240,
                             name: '[path][name].[hash].[ext]',
-                            outputPath: url => url.replace(/src|node_modules/, '.')
+                            outputPath: url => url.replace(/^src/i, '.')
                         }
                     }]
                 },
@@ -70,7 +94,7 @@ module.exports = function(options) {
                         loader: 'file-loader',
                         options: {
                             name: '[path][name].[hash].[ext]',
-                            outputPath: url => url.replace(/src|node_modules/, '.')
+                            outputPath: url => url.replace(/^src/i, '.')
                         }
                     }]
                 },

@@ -1,5 +1,6 @@
 const helpers = require('./helpers');
 const config = require('./webpack.common');
+const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const webpackMergeDll = webpackMerge.strategy({ plugins: 'replace' });
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
@@ -21,7 +22,12 @@ module.exports = webpackMerge(config({ env: ENV }), {
         ]
     },
     plugins: [
-        new DllBundlesPlugin({
+        new webpack.ContextReplacementPlugin(
+            /\@angular(\\|\/)core(\\|\/)esm5/,
+            helpers.root('src'),
+            {}
+        ),
+        /* new DllBundlesPlugin({
             bundles: {
                 polyfills: [
                     'core-js',
@@ -62,6 +68,6 @@ module.exports = webpackMerge(config({ env: ENV }), {
         new AddAssetHtmlPlugin([
             { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('polyfills')}`) },
             { filepath: helpers.root(`dll/${DllBundlesPlugin.resolveFile('vendor')}`) }
-        ]),
+        ]), */
     ]
 });

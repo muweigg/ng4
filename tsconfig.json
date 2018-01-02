@@ -10,10 +10,17 @@
         "typeRoots": [
             "node_modules/@types"
         ],
+        "paths": {
+          "@angular/*": ["node_modules/@angular/*"]
+        },
+        "baseUrl": "./src",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
+        "allowSyntheticDefaultImports": true,
         "sourceMap": true,
-        "importHelpers": true
+        "noEmitHelpers": true,
+        "importHelpers": true,
+        "strictNullChecks": false
     },
     "exclude": [
         "node_modules",
