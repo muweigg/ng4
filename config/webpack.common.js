@@ -17,8 +17,6 @@ const entryPoints = ["manifest", "polyfills", "vendor", "common", "main"];
 
 module.exports = function(options) {
 
-    const isProd = options.env === 'production';
-
     return {
 
         devServer: devServer,
@@ -82,7 +80,9 @@ module.exports = function(options) {
         plugins: [
             new webpack.NoEmitOnErrorsPlugin(),
             new webpack.DefinePlugin({
-                'PROD_ENV': JSON.stringify(isProd)
+                'ENV': JSON.stringify(process.env.ENV),
+                'process.env.ENV': JSON.stringify(process.env.ENV),
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
             }),
             /* new CopyPlugin([{
                 from: helpers.root('src/assets'),
