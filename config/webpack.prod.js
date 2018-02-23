@@ -9,9 +9,32 @@ const { AngularCompilerPlugin } = require('@ngtools/webpack');
 const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
+const tsConfigPath = 'tsconfig.json';
 const ENV = process.env.ENV = process.env.NODE_ENV = "production";
 const AOT = helpers.hasNpmFlag('aot');
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
+const supportES2015 = helpers.supportES2015(tsConfigPath);
+
+function getUglifyOptions(supportES2015) {
+    const uglifyCompressOptions = {
+        pure_getters: true,
+        // PURE comments work best with 3 passes.
+        // See https://github.com/webpack/webpack/issues/2899#issuecomment-317425926.
+        passes: 3
+    };
+
+    return {
+        ecma: supportES2015 ? 6 : 5,
+        warnings: false,
+        ie8: false,
+        mangle: true,
+        compress: uglifyCompressOptions,
+        output: {
+            ascii_only: true,
+            comments: false
+        }
+    };
+}
 
 module.exports = webpackMerge(config({ env: ENV }), {
     output: {
@@ -46,11 +69,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
         new UglifyJsPlugin({
             sourceMap: false,
             parallel: true,
-            uglifyOptions: {
-                compress: { warnings: false, drop_console: true },
-                output: { comments: false },
-                ie8: true,
-            },
+            uglifyOptions: getUglifyOptions(supportES2015),
         }),
     ]
 });
