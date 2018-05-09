@@ -1,13 +1,13 @@
-# ng5
-This is a quick start creating an angular 5 application with webpack.
+# ng6
+This is a quick start creating an angular 6 application with webpack.
 
 ### Quick start
 ```bash
 # Clone my repo
-git clone https://github.com/muweigg/ng5.git
+git clone https://github.com/muweigg/ng6.git
 
-# Change directory to ng5
-cd ng5
+# Change directory to ng6
+cd ng6
 
 # Install dependencies
 npm install

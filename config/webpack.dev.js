@@ -23,7 +23,7 @@ module.exports = webpackMerge(config({ env: ENV }), {
     },
     plugins: [
         new webpack.ContextReplacementPlugin(
-            /\@angular(\\|\/)core(\\|\/)esm5/,
+            /\@angular(\\|\/)core(\\|\/)f?esm5/,
             helpers.root('src'),
             {}
         ),
