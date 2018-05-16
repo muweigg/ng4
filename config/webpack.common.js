@@ -3,8 +3,6 @@ const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const devServer = require('./devServer');
@@ -12,7 +10,6 @@ const spritesmithConfig = require('./spritesmithConfig');
 const htmlLoaderConfig = require('./htmlLoaderConfig');
 const INDEX_HTML = helpers.root('src/index.html');
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
-const entryPoints = ["manifest", "polyfills", "vendor", "common", "main"];
 
 const tsConfigPath = 'tsconfig.json';
 
@@ -25,7 +22,6 @@ module.exports = function(options) {
         devServer: devServer,
 
         entry: {
-            polyfills: [helpers.root('src/polyfills.ts')],
             main: [helpers.root('src/main.ts')],
             common: [COMMON_STYLE]
         },
@@ -33,7 +29,7 @@ module.exports = function(options) {
         output: {
             path: helpers.root('dist'),
             filename: '[name].bundle.js',
-            chunkFilename: '[id].chunk.js',
+            chunkFilename: '[name].chunk.js',
             sourceMapFilename: '[file].map',
         },
 
@@ -63,9 +59,23 @@ module.exports = function(options) {
             alias: helpers.rxjsAlias(supportES2015)
         },
 
+        optimization: {
+            runtimeChunk: { name: 'runtime' },
+            splitChunks: {
+                cacheGroups: {
+                    vendors: {
+                        test: /[\\/]node_modules[\\/].*\.(t|j)sx?$|styles.*common\.(s[ac]|c)ss$/,
+                        name: 'vendors',
+                        chunks: 'initial',
+                        priority: -10,
+                        enforce: true
+                    },
+                }
+            },
+        },
+
         module: {
             rules: [
-                { test: /\.html$/, use: ['ejs-tpl-loader'], include: [INDEX_HTML] },
                 { test: /\.json$/, use: ['json-loader'] },
                 { test: /\.css$/,  use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
                 { test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
@@ -101,52 +111,19 @@ module.exports = function(options) {
         },
 
         plugins: [
-            new webpack.NoEmitOnErrorsPlugin(),
-            new webpack.DefinePlugin({
-                'ENV': JSON.stringify(process.env.ENV),
-                'process.env.ENV': JSON.stringify(process.env.ENV),
-                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-            }),
             /* new CopyPlugin([{
                 from: helpers.root('src/assets'),
                 to: 'assets/[path][name].[hash].[ext]',
                 ignore: ['favicon.ico']
             }]), */
             new CheckerPlugin(),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'polyfills',
-                chunks: ['polyfills'],
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'vendor',
-                chunks: ['main'],
-                minChunks: module => /node_modules/.test(module.resource)
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'manifest',
-                minChunks: Infinity
-            }),
             new HtmlPlugin({
                 filename: 'index.html',
                 template: helpers.root('src/index.html'),
                 favicon: helpers.root('src/assets/favicon.ico'),
-                chunksSortMode: function sort(left, right) {
-                    let leftIndex = entryPoints.indexOf(left.names[0]);
-                    let rightindex = entryPoints.indexOf(right.names[0]);
-                    if (leftIndex > rightindex) {
-                        return 1;
-                    } else if (leftIndex < rightindex) {
-                        return -1;
-                    } else {
-                        return 0;
-                    }
-                },
-                inject: 'head'
+                chunksSortMode: 'dependency',
+                inject: 'body',
             }),
-            new ScriptExtHtmlWebpackPlugin({
-                defaultAttribute: 'defer'
-            }),
-            new InlineManifestWebpackPlugin(),
             ...spritesmithConfig,
             /**
              * If you are interested to drill down to exact dependencies, try analyzing your bundle without ModuleConcatenationPlugin. See issue https://github.com/webpack-contrib/webpack-bundle-analyzer/issues/115 for more discussion.

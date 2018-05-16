@@ -1,5 +1,5 @@
 # ng6
-This is a quick start creating an angular 6 application with webpack.
+This is a quick start creating an angular 6 application with webpack 4.
 
 ### Quick start
 ```bash
