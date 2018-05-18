@@ -50,6 +50,7 @@ module.exports = webpackMerge(config(), {
             new UglifyJsPlugin({
                 sourceMap: false,
                 parallel: true,
+                cache: helpers.root('.webpack-cache/uglify-cache'),
                 uglifyOptions: getUglifyOptions(supportES2015),
             }),
             new OptimizeCSSAssetsPlugin({
