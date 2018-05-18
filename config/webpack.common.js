@@ -11,11 +11,9 @@ const htmlLoaderConfig = require('./htmlLoaderConfig');
 const INDEX_HTML = helpers.root('src/index.html');
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
 
-const tsConfigPath = 'tsconfig.json';
-
 module.exports = function(options) {
 
-    const supportES2015 = helpers.supportES2015(tsConfigPath);
+    const supportES2015 = helpers.supportES2015();
 
     return {
 

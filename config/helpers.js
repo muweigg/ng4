@@ -24,7 +24,7 @@ function isWebpackDevServer() {
 var root = path.join.bind(path, ROOT);
 
 
-function supportES2015(tsConfigPath) {
+function supportES2015(tsConfigPath = 'tsconfig.json') {
   if (!supportES2015.hasOwnProperty('supportES2015')) {
     const tsTarget = readTsConfig(tsConfigPath).options.target;
     supportES2015['supportES2015'] = tsTarget !== ts.ScriptTarget.ES3 && tsTarget !== ts.ScriptTarget.ES5;
