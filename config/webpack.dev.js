@@ -10,7 +10,7 @@ const COMMON_STYLE = helpers.root('src/styles/common.scss');
 
 module.exports = webpackMerge(config(), {
     
-    devtool: "source-map",
+    devtool: "eval",
 
     module: {
         rules: [
