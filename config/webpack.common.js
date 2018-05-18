@@ -63,10 +63,17 @@ module.exports = function(options) {
             runtimeChunk: { name: 'runtime' },
             splitChunks: {
                 cacheGroups: {
+                    polyfills: {
+                        test: /core-js|zone\.js/,
+                        name: 'polyfills',
+                        chunks: 'initial',
+                        priority: -5,
+                        enforce: true
+                    },
                     vendors: {
                         test: /[\\/]node_modules[\\/].*\.(t|j)sx?$|styles.*common\.(s[ac]|c)ss$/,
                         name: 'vendors',
-                        chunks: 'initial',
+                        chunks: 'all',
                         priority: -10,
                         enforce: true
                     },
