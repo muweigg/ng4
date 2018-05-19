@@ -17,9 +17,7 @@ const supportES2015 = helpers.supportES2015();
 function getUglifyOptions(supportES2015) {
     const uglifyCompressOptions = {
         pure_getters: true,
-        // PURE comments work best with 3 passes.
-        // See https://github.com/webpack/webpack/issues/2899#issuecomment-317425926.
-        passes: 3,
+        passes: 2,
         drop_console: true,
         warnings: false
     };
