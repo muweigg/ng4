@@ -69,7 +69,7 @@ module.exports = function(options) {
                         enforce: true
                     },
                     vendors: {
-                        test: /[\\/]node_modules[\\/].*\.(t|j)sx?$|styles.*common\.(s[ac]|c)ss$/,
+                        test: /[\\/]node_modules[\\/].*\.(t|j)sx?$|[\\/]styles[\\/].*\.(s[ac]|c)ss$/,
                         name: 'vendors',
                         chunks: 'all',
                         priority: -10,
