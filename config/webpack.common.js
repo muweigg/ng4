@@ -20,6 +20,7 @@ module.exports = function(options) {
         devServer: devServer,
 
         entry: {
+            polyfills: [helpers.root('src/polyfills.ts')],
             main: [helpers.root('src/main.ts')],
             common: [COMMON_STYLE]
         },
@@ -62,17 +63,19 @@ module.exports = function(options) {
             splitChunks: {
                 cacheGroups: {
                     polyfills: {
-                        test: /core-js|zone\.js/,
                         name: 'polyfills',
-                        chunks: 'initial',
-                        priority: -5,
-                        enforce: true
+                        chunks: 'all',
+                        priority: -10,
+                        enforce: true,
+                        test (module, chunks) {
+                            return chunks.some(chunk => chunk.name === 'polyfills');
+                        },
                     },
                     vendors: {
                         test: /[\\/]node_modules[\\/].*\.(t|j)sx?$|[\\/]styles[\\/].*\.(s[ac]|c)ss$/,
                         name: 'vendors',
                         chunks: 'all',
-                        priority: -10,
+                        priority: -15,
                         enforce: true
                     },
                 }

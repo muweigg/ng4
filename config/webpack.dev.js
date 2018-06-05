@@ -4,7 +4,8 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const webpackMergeDll = webpackMerge.strategy({ plugins: 'replace' });
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
-const DllBundlesPlugin = require('webpack-dll-bundles-plugin').DllBundlesPlugin;
+
+const COMMON_STYLE = helpers.root('src/styles/common.scss');
 
 module.exports = webpackMerge(config(), {
     
@@ -16,14 +17,14 @@ module.exports = webpackMerge(config(), {
             {
                 test: /\.(s[ac]|c)ss$/,
                 use: ['style-loader', 'css-loader?importLoaders=1', 'postcss-loader', 'sass-loader'],
-                include: [helpers.root('src', 'styles')]
+                include: [COMMON_STYLE]
             },
         ]
     },
 
     plugins: [
         new webpack.ContextReplacementPlugin(
-            /\@angular(\\|\/)core(\\|\/)f?esm5/,
+            /[\\/]@angular[\\/]core[\\/]f?esm5/,
             helpers.root('src'),
             {}
         ),

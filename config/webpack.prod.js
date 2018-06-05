@@ -11,6 +11,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
+const COMMON_STYLE = helpers.root('src/styles/common.scss');
 const AOT = helpers.hasNpmFlag('aot');
 const supportES2015 = helpers.supportES2015();
 
@@ -70,7 +71,7 @@ module.exports = webpackMerge(config(), {
                     'postcss-loader',
                     'sass-loader',
                 ],
-                include: [helpers.root('src', 'styles')]
+                include: [COMMON_STYLE]
             },
         ]
     },
