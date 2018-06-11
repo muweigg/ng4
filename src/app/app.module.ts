@@ -10,7 +10,6 @@ import { metaReducers, SetState, StoreType } from './reducers';
 import { take } from 'rxjs/operators';
 
 import { AppComponent } from './app.component';
-import { PageNotFoundComponent } from './components/404/page-not-found.component';
 
 @NgModule({
     imports: [
