@@ -1,7 +1,7 @@
 import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppRoutingModule, appRoutingComponents } from './app-routing.module';
 
@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
     imports: [
         BrowserModule,
         FormsModule,
-        HttpModule,
+        HttpClientModule,
         AppRoutingModule,
         StoreModule.forRoot({
             // Add your reducers here
