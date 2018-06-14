@@ -1,6 +1,5 @@
 const helpers = require('./helpers');
 const config = require('./webpack.common');
-const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const CleanPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");

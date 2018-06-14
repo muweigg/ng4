@@ -2,8 +2,6 @@ const helpers = require('./helpers');
 const config = require('./webpack.common');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const webpackMergeDll = webpackMerge.strategy({ plugins: 'replace' });
-const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 const COMMON_STYLE = helpers.root('src/styles/common.scss');
 
