@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "This is a quick start creating an angular 6 application with webpack 4.",
   "scripts": {
-    "stats": "npm run build -- --json > stats.json",
-    "stats:aot": "npm run build:aot -- --json > stats.json",
+    "stats": "webpack --config config/webpack.prod.js --mode=production --progress --profile --json > stats.json",
+    "stats:aot": "webpack --config config/webpack.prod.js --mode=production --progress --profile --json > stats.json",
     "build": "webpack --config config/webpack.prod.js --mode=production --progress",
     "build:aot": "webpack --config config/webpack.prod.js --mode=production --progress",
-    "serve": "webpack-dev-server --config config/webpack.dev.js --mode=development --progress --profile --watch",
-    "serve:hot": "npm run serve -- --hot --inline"
+    "serve": "webpack-dev-server --config config/webpack.dev.js --mode=development --progress --watch",
+    "serve:hot": "npm run serve -- --hot --inline",
+    "analyzer": "webpack-bundle-analyzer stats.json"
   },
   "author": "MuWei",
   "license": "MIT",
