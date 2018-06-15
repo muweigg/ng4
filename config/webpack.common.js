@@ -63,7 +63,7 @@ module.exports = function(options) {
                 cacheGroups: {
                     polyfills: {
                         name: 'polyfills',
-                        chunks: 'all',
+                        chunks: 'initial',
                         priority: -10,
                         enforce: true,
                         test (module, chunks) {
@@ -73,7 +73,7 @@ module.exports = function(options) {
                     vendors: {
                         test: /[\\/]node_modules[\\/].*\.(t|j)sx?$|[\\/]styles[\\/].*\.(s[ac]|c)ss$/,
                         name: 'vendors',
-                        chunks: 'all',
+                        chunks: 'initial',
                         priority: -15,
                         enforce: true
                     },
