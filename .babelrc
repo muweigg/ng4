@@ -1,7 +1,19 @@
 {
-    "env": {
-        "production": {
-            "presets": [ "minify" ]
+    "presets": [
+      ["@babel/preset-env", {
+        "useBuiltIns": false,
+        "modules": false,
+        "targets": {
+          "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
         }
+      }]
+    ],
+    "env": {
+      "production": {
+        "presets": ["minify"]
+      },
+      "development": {
+        "presets": [["@babel/preset-env", { "debug": true }]]
+      }
     }
 }
