@@ -1,7 +1,7 @@
 {
   "name": "ng6",
   "version": "1.0.0",
-  "description": "This is a quick start creating an angular 6 application with webpack 4.",
+  "description": "This is a quick start creating an angular 7 application with webpack 4.",
   "scripts": {
     "stats": "webpack --config config/webpack.prod.js --mode=production --progress --profile --json > stats.json",
     "stats:aot": "webpack --config config/webpack.prod.js --mode=production --progress --profile --json > stats.json",
@@ -37,7 +37,7 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-optimizer": "^0.6.8",
+    "@angular-devkit/build-optimizer": "^0.10.3",
     "@angular/compiler-cli": "^7.0.1",
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
@@ -81,10 +81,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/muweigg/ng5.git"
+    "url": "https://github.com/muweigg/ng7.git"
   },
   "bugs": {
-    "url": "https://github.com/muweigg/ng5/issues"
+    "url": "https://github.com/muweigg/ng7/issues"
   },
   "engines": {
     "node": ">= 8.9.0",

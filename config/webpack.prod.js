@@ -5,7 +5,6 @@ const CleanPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const SuppressExtractedTextChunksWebpackPlugin = require('./plugins/SuppressExtractedTextChunksWebpackPlugin');
-const PurifyPlugin = require('@angular-devkit/build-optimizer').PurifyPlugin;
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
@@ -88,7 +87,6 @@ module.exports = webpackMerge(config(), {
             mainPath: './src/main.ts',
             skipCodeGeneration: !AOT
         }),
-        new PurifyPlugin(),
         new InlineManifestWebpackPlugin(),
     ]
 });

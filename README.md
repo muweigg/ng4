@@ -1,13 +1,13 @@
-# ng6
-This is a quick start creating an angular 6 application with webpack 4.
+# ng7
+This is a quick start creating an angular 7 application with webpack 4.
 
 ### Quick start
 ```bash
 # Clone my repo
-git clone https://github.com/muweigg/ng6.git
+git clone https://github.com/muweigg/ng7.git
 
-# Change directory to ng6
-cd ng6
+# Change directory to ng7
+cd ng7
 
 # Install dependencies
 npm install
