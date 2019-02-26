@@ -14,7 +14,17 @@ module.exports = webpackMerge(config(), {
             { test: /\.ts$/, use: ['@angularclass/hmr-loader', 'ng-router-loader', { loader: 'awesome-typescript-loader', options: { useCache: true } }, 'angular2-template-loader'] },
             {
                 test: /\.(s[ac]|c)ss$/,
-                use: ['style-loader', 'css-loader?importLoaders=1', 'postcss-loader', 'sass-loader'],
+                use: [
+                    'style-loader',
+                    {
+                      loader: 'css-loader',
+                      options: {
+                        importLoaders: 2,
+                      },
+                    },
+                    'postcss-loader',
+                    'sass-loader'
+                ],
                 include: [COMMON_STYLE]
             },
         ]

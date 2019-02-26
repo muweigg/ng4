@@ -66,7 +66,12 @@ module.exports = webpackMerge(config(), {
                 test: /\.(s[ac]|c)ss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
-                    'css-loader?importLoaders=1',
+                    {
+                      loader: 'css-loader',
+                      options: {
+                        importLoaders: 2,
+                      },
+                    },
                     'postcss-loader',
                     'sass-loader',
                 ],
