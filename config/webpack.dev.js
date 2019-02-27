@@ -27,8 +27,15 @@ module.exports = webpackMerge(config(), {
                 ],
                 include: [COMMON_STYLE]
             },
+            { test: /[\/\\]@angular[\/\\]core[\/\\].+\.js$/, parser: { system: true } },
         ]
     },
 
-    plugins: [ ]
+    plugins: [
+        new webpack.ContextReplacementPlugin(
+            /[\/\\]@angular[\/\\]core[\/\\]fesm5/,
+            helpers.root('src'),
+            {}
+        ),
+    ]
 });

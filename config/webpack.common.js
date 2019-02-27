@@ -83,8 +83,8 @@ module.exports = function(options) {
 
         module: {
             rules: [
-                { test: /\.css$/,  use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
-                { test: /\.scss$/, use: ['raw-loader', 'postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
+                { test: /\.css$/,  use: ['postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
+                { test: /\.scss$/, use: ['postcss-loader', 'sass-loader'], exclude: [COMMON_STYLE] },
                 {
                     test: /\.html$/,
                     use: [{
