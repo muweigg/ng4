@@ -7,7 +7,7 @@ const COMMON_STYLE = helpers.root('src/styles/common.scss');
 
 module.exports = webpackMerge(config(), {
     
-    devtool: "eval",
+    devtool: "cheap-module-eval-source-map",
 
     module: {
         rules: [
@@ -30,11 +30,5 @@ module.exports = webpackMerge(config(), {
         ]
     },
 
-    plugins: [
-        new webpack.ContextReplacementPlugin(
-            /[\\/]@angular[\\/]core[\\/]f?esm5/,
-            helpers.root('src'),
-            {}
-        ),
-    ]
+    plugins: [ ]
 });

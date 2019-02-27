@@ -35,6 +35,8 @@ function getUglifyOptions(supportES2015) {
 }
 
 module.exports = webpackMerge(config(), {
+    
+    devtool: "source-map",
 
     output: {
         filename: '[name].[chunkhash:12].bundle.js',
@@ -44,7 +46,7 @@ module.exports = webpackMerge(config(), {
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
-                sourceMap: false,
+                sourceMap: true,
                 parallel: true,
                 cache: helpers.root('.webpack-cache/uglify-cache'),
                 uglifyOptions: getUglifyOptions(supportES2015),
