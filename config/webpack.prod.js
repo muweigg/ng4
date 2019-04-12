@@ -83,7 +83,7 @@ module.exports = webpackMerge(config(), {
     },
 
     plugins: [
-        new CleanPlugin(['dist'], { root: helpers.root() }),
+        new CleanPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash:12].css',
             chunkFilename: '[name].[contenthash:12].css'
